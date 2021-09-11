@@ -24,12 +24,21 @@ namespace WpfApp3
     {
 
 
+        public string NameMovie { get; set; }
         public string ImagePath { get; set; }
+        public int Year { get; set; }
+
+        public string Writer { get; set; }
+        public string Director { get; set; }
+
+        public double Rating { get; set; }
 
         public string Minute { get; set; }
 
         public string Description { get; set; }
         public dynamic SingleData { get; set; }
+
+
         public dynamic Data { get; set; }
 
         HttpClient httpClient = new HttpClient();
@@ -58,8 +67,19 @@ namespace WpfApp3
             MovieImage2.Source = SingleData.Poster;
             Minute = SingleData.Runtime;
             Description = SingleData.Genre;
+            NameMovie = SingleData.Title;
+            Writer = SingleData.Writer;
+            Director = SingleData.Director;
+            Rating = SingleData.imdbRating;
+            Year = SingleData.Year;
 
-            movieLabel.Content = Minute + " " + Description;
+            movieLabel.Content = NameMovie;
+            lblTitle.Content = "Title :" + NameMovie;
+            lblGenre.Content = "Genre :" + Description;
+            lblYear.Content = "Year :" + Year.ToString();
+            lblDirector.Content = "Director :" + Director;
+            lblWriter.Content = "Writer :" + Writer;
+            lblRating.Content = "Rating :" + Rating.ToString();
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -69,6 +89,7 @@ namespace WpfApp3
 
         private void BackBtn_Click(object sender, RoutedEventArgs e)
         {
+            StckPanel.Visibility = Visibility.Visible;
             --Count;
 
             try
@@ -97,6 +118,7 @@ namespace WpfApp3
 
         private void NextBtn_Click(object sender, RoutedEventArgs e)
         {
+            
             ++Count;
             try
             {
@@ -116,6 +138,14 @@ namespace WpfApp3
                 BitmapImage yesImage = new BitmapImage(new Uri("/Images/Smile.png", UriKind.Relative));
                 MovieImage2.Source = yesImage;
                 NextBtn.Visibility = Visibility.Hidden;
+                movieLabel.Content = "No Movie";
+                //lblTitle.Content = " ";
+                //lblGenre.Content = " " ;
+                //lblYear.Content = " ";
+                //lblDirector.Content = " ";
+                //lblWriter.Content = " " ;
+                //lblRating.Content = " ";
+                StckPanel.Visibility = Visibility.Hidden;
             }
 
 
